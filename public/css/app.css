@@ -10966,3 +10966,7 @@ a.text-dark:focus {
   }
 }
 
+.font-bold {
+  font-weight: bold;
+}
+
