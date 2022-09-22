@@ -63,7 +63,10 @@ class PostController extends Controller
 
         $data['post_date'] = date('Y-m-d H:i:s');
 
-        $post->create($data); 
+        $post->fill($data); 
+        $post->save();
+
+        $post->tags()->sync($data['tags']);
 
         return redirect()->route('admin.posts.index');
     }
