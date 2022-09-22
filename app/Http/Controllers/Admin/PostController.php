@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Model\Category;
 use App\Model\Post;
+use App\Model\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\VarDumper\Cloner\Data;
@@ -38,9 +39,10 @@ class PostController extends Controller
      */
     public function create()
     {
+        $tags = Tag::all();
         $categories = Category::all();
         $post = new Post();
-        return view('admin.posts.create',compact('post','categories'));
+        return view('admin.posts.create',compact('post','categories','tags'));
     }
 
     /**
@@ -86,9 +88,10 @@ class PostController extends Controller
      */
     public function edit($id)
     {
+        $tags = Tag::all();
         $categories = Category::all();
         $post = Post::findOrFail($id);
-        return view('admin.posts.edit',compact('post','categories'));
+        return view('admin.posts.edit',compact('post','categories','tags'));
     }
 
     /**
@@ -105,8 +108,10 @@ class PostController extends Controller
         $validatedData = $request->validate($this->validationRules); 
 
         $post = Post::findOrFail($id);
-        
-        $post->update($curr_post); // Facciamo il fill di post con i dati di curr_post
+
+        $post->fill($curr_post); // Facciamo il fill di post con i dati di curr_post
+        $post->tags()->sync($curr_post['tags']); //
+        $post->save();
 
         return redirect()->route('admin.posts.index')->with('update',$post->title); 
     }

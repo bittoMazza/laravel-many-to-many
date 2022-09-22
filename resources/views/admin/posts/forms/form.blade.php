@@ -39,4 +39,18 @@
 </div>
 @enderror
 
+<div>
+    <label class="text-light">TAGS</label>
+    @foreach ($tags as $tag)
+        <div class="form-check text-white">
+            <input class="form-check-input" type="checkbox" value="{{ $tag->id }}" name="tags[]" id="exampleRadios1" {{ $post->tags->contains($tag) ? 'checked' : '' }}>
+            <label class="form-check-label" for="exampleRadios1">
+            {{ $tag->name }}
+            </label>
+        </div>
+    @endforeach
+</div>
+
+
+
 <button type="submit" class="btn btn-primary my-3">Salva il post</button>
