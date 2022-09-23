@@ -27,8 +27,8 @@ class TagController extends Controller
      */
     public function create()
     {
-        $newTag = new Tag();
-        return view('admin.tags.create',compact('newTag'));
+        $tag = new Tag();
+        return view('admin.tags.create',compact('tag'));
     }
 
     /**
@@ -39,7 +39,11 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newTag = new Tag();
+        $newTag = $request['name'];
+        $newTag->save();
+
+        return redirect()->route('admin.posts.index');
     }
 
     /**

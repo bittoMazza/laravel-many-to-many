@@ -54,7 +54,8 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        
+             
+      
         $validatedData = $request->validate($this->validationRules); 
 
         $post = new Post();
@@ -64,9 +65,17 @@ class PostController extends Controller
         $data['post_date'] = date('Y-m-d H:i:s');
 
         $post->fill($data); 
-        $post->save();
 
-        $post->tags()->sync($data['tags']);
+        $post->save();
+        
+        if (in_array('tags',$data)) {
+            $post->tags()->sync($data['tags']);
+        }
+        else
+        {
+            $post->tags()->sync(null);
+        }
+
 
         return redirect()->route('admin.posts.index');
     }
@@ -106,14 +115,24 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $curr_post = $request->all();
 
+        
+        $curr_post = $request->all();
+        
         $validatedData = $request->validate($this->validationRules); 
 
         $post = Post::findOrFail($id);
 
         $post->fill($curr_post); // Facciamo il fill di post con i dati di curr_post
-        $post->tags()->sync($curr_post['tags']); //
+       
+        if (isset($curr_post['tags'])) {
+            $post->tags()->sync($curr_post['tags']);
+        }
+        else
+        {
+            $post->tags()->sync(null);
+        }
+
         $post->save();
 
         return redirect()->route('admin.posts.index')->with('update',$post->title); 
