@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Model\Post;
 use App\Model\Tag;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,8 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        $newTag = new Tag();
+        return view('admin.tags.create',compact('newTag'));
     }
 
     /**
@@ -48,8 +50,11 @@ class TagController extends Controller
      */
     public function show($id)
     {
-        $tags = Tag::findOrFail($id);
-        return view('admin.tags.show',compact('tags'));
+        /* $post = Post::all();
+        $tag = Tag::findOrFail($id); */
+        $post = Tag::findOrFail($id);
+        dd($post->posts);
+        return view('admin.tags.show',compact('tag'));
     }
 
     /**
@@ -60,7 +65,8 @@ class TagController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tag = Tag::findOrFail($id);
+        return view('admin.tags.edit',compact('tag'));
     }
 
     /**

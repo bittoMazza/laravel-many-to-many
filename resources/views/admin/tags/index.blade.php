@@ -15,6 +15,7 @@
         {{ session('update') }} è stato modificato con successo
       </div>
     @endif
+    <a href="{{ route('admin.tags.create') }}" class="btn btn-info">new tag</a>
     <table class="table table-striped table-dark">
         <thead>
           <tr>
@@ -29,7 +30,7 @@
                     <td><a class="text-white" href="{{ route('admin.tags.show',$tag->id) }}">{{ $tag->name }}</a></td>
                     <td>
                       <div class="d-flex">
-                        <a href="#" class="btn btn-warning me-2">Edit</a>
+                        <a href="{{ route('admin.tags.edit',$tag->id) }}" class="btn btn-warning me-2">Edit</a>
                         <form action="" method="POST" class="delete-comic-form">
                           @csrf
                           @method('DELETE')

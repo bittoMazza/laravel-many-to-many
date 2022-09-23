@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="container text-center mt-3">
-        <h2 style="background-color: ">{{ $category->name }}</h2>
+        <h2 style="background-color: ">{{ $tag->name }}</h2>
         <table class="table table-striped table-dark">
             <thead>
               <tr>
@@ -13,11 +13,10 @@
                 <th>Data Post</th>
                 <th>Contenuto Post</th>
                 <th>Categoria</th>
-                <th>Tags</th>
               </tr>
             </thead>
             <tbody>
-                @foreach ($category->posts as $post)
+                @foreach ($tag->posts as $post)
                     <tr>
                         <td><a href="{{ route('admin.posts.show',$post->id) }}">{{ $post->title }}</a></td>
                         <td>{{ $post->user->name }}</td>
@@ -25,7 +24,7 @@
                         <td>{{ $post->post_date }}</td>
                         <td>{{ $post->post_content }}</td>
                         @isset($post->category)
-                        <td><a href="{{ route('admin.categories.show',$post->category->id) }}" class="p-1 rounded" style="background-color:{{ $post->category->color }} ">{{ $post->category->name }}</a></td>
+                        <td><a href="{{ route('admin.categories.show',$post->category->id) }}" class="p-1 rounded text-white" style="background-color:{{ $post->category->color }} ">{{ $post->category->name }}</a></td>
                         @endisset
                        
                         <td>
