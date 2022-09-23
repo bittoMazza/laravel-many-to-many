@@ -39,8 +39,12 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
+        
+        $data = $request->all();
+
         $newTag = new Tag();
-        $newTag = $request['name'];
+
+        $newTag->name = $data['name'];
         $newTag->save();
 
         return redirect()->route('admin.posts.index');
