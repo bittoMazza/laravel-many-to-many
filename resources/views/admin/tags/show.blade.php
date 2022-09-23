@@ -13,6 +13,7 @@
                 <th>Data Post</th>
                 <th>Contenuto Post</th>
                 <th>Categoria</th>
+                <th>Tags</th>
               </tr>
             </thead>
             <tbody>
@@ -24,7 +25,7 @@
                         <td>{{ $post->post_date }}</td>
                         <td>{{ $post->post_content }}</td>
                         @isset($post->category)
-                        <td><a href="{{ route('admin.categories.show',$post->category->id) }}" class="p-1 rounded text-white" style="background-color:{{ $post->category->color }} ">{{ $post->category->name }}</a></td>
+                        <td><a href="{{ route('admin.categories.show',$post->category->id) }}" class="p-1 rounded" style="background-color:{{ $post->category->color }} ">{{ $post->category->name }}</a></td>
                         @endisset
                        
                         <td>

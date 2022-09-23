@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Model\Category;
+use App\Model\Tag;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class CategoryController extends Controller
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('admin.categories.index',compact('categories'));
+        $tags = Tag::all();
+        return view('admin.tags.index',compact('tags'));
     }
 
     /**
@@ -49,8 +48,8 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category = Category::findOrFail($id);
-        return view('admin.categories.show',compact('category'));
+        $tags = Tag::findOrFail($id);
+        return view('admin.tags.show',compact('tags'));
     }
 
     /**

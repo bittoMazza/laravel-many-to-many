@@ -22,7 +22,10 @@
 
 <select type="text" name="category_id" id="">
     @foreach ($categories as  $category)
-        <option value="{{ $category->id }}">
+        <option value="{{ old('category_id',$category->id) }}" 
+            @isset($post->category)
+                {{ $category->id === $post->category->id ? 'selected' : '' }}
+            @endisset>
             {{ $category->name }}
         </option>
     @endforeach
