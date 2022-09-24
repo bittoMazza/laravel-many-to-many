@@ -19,7 +19,8 @@ class PostController extends Controller
                     
         'title' => 'required|min:5|max:255',
         'thumb' => 'required|url',
-        'post_content' => 'required|min:3|max:200'  
+        'post_content' => 'required|min:3|max:200',
+        'tags' => 'exists:tags,id'  
     ];
     /**
      * Display a listing of the resource.
@@ -68,12 +69,9 @@ class PostController extends Controller
 
         $post->save();
         
-        if (in_array('tags',$data)) {
-            $post->tags()->sync($data['tags']);
-        }
-        else
-        {
-            $post->tags()->sync(null);
+         
+        if (isset($curr_post['tags'])) {
+            $post->tags()->sync($curr_post['tags']);
         }
 
 
@@ -130,7 +128,7 @@ class PostController extends Controller
         }
         else
         {
-            $post->tags()->sync(null);
+            $post->tags()->detach();
         }
 
         $post->save();

@@ -5,10 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Model\Post;
 use App\Model\Tag;
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
+
+    protected $validationRules = [                  
+        'name' => 'required', 
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -47,7 +52,7 @@ class TagController extends Controller
         $newTag->name = $data['name'];
         $newTag->save();
 
-        return redirect()->route('admin.posts.index');
+        return redirect()->route('admin.tags.index');
     }
 
     /**
@@ -86,7 +91,17 @@ class TagController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tag = Tag::findOrFail($id);
+
+        $validatedData = $request->validate($this->validationRules);
+
+        $tag->name = $request->all()['name'];
+
+        $tag->save();
+
+        return redirect()->route('admin.tags.index');
+
+
     }
 
     /**
@@ -97,6 +112,8 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tag = Tag::findOrFail($id);
+        $tag->delete();
+        return redirect()->route('admin.tags.index');
     }
 }

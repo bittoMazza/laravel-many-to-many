@@ -15,7 +15,7 @@
         {{ session('update') }} è stato modificato con successo
       </div>
     @endif
-    <a href="{{ route('admin.tags.create') }}" class="btn btn-info">new tag</a>
+    <a  href="{{ route('admin.tags.create') }}" class="btn btn-info my-3">new tag</a>
     <table class="table table-striped table-dark">
         <thead>
           <tr>
@@ -31,7 +31,7 @@
                     <td>
                       <div class="d-flex">
                         <a href="{{ route('admin.tags.edit',$tag->id) }}" class="btn btn-warning me-2">Edit</a>
-                        <form action="" method="POST" class="delete-comic-form">
+                        <form action="{{ route('admin.tags.destroy',$tag->id) }}" method="POST" class="delete-comic-form">
                           @csrf
                           @method('DELETE')
                           <button type="submit" class="btn btn-danger">Delete</button>
