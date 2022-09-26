@@ -8,6 +8,7 @@ use App\Model\Post;
 use App\Model\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\VarDumper\Cloner\Data;
 
 use function GuzzleHttp\Promise\all;
@@ -18,7 +19,7 @@ class PostController extends Controller
     protected $validationRules = [
                     
         'title' => 'required|min:5|max:255',
-        'thumb' => 'required|url',
+        'thumb' => 'required|image|max:265',
         'post_content' => 'required|min:3|max:200',
         'tags' => 'exists:tags,id'  
     ];
@@ -64,6 +65,8 @@ class PostController extends Controller
         $data['user_id'] = Auth::user()->id;
 
         $data['post_date'] = date('Y-m-d H:i:s');
+
+        $data['thumb'] = Storage::put('uploads',$data['thumb']);
 
         $post->fill($data); 
 
@@ -120,6 +123,8 @@ class PostController extends Controller
         $validatedData = $request->validate($this->validationRules); 
 
         $post = Post::findOrFail($id);
+        
+        $curr_post['thumb'] = Storage::put('uploads',$curr_post['thumb']);
 
         $post->fill($curr_post); // Facciamo il fill di post con i dati di curr_post
        

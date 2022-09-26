@@ -15,7 +15,13 @@
             </h4>
         <p class="p-3">{{ $post->user->name }}</p>
         <div>
-            <img src="{{ $post->thumb }}" alt="">
+            /* Controlliamo se $post->thumb è un url,se non lo è lo prendiamo dalla cartella storage */
+            @if (filter_var($post->thumb, FILTER_VALIDATE_URL))
+             <img src="{{ $post->thumb }}" alt="">
+            @else
+             <img src="{{ asset('storage/'.$post->thumb) }}" alt="">
+            @endif
+
         </div>
         <div class="row">
             <div class="col-12">

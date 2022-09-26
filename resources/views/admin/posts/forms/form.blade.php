@@ -33,7 +33,7 @@
 
 <div class="form-group">
     <label class="text-light">IMMAGINE POST</label>
-    <input type="text" class="form-control" value="{{ old('thumb',$post->thumb) }}" name="thumb" placeholder="Inserire immagine" required>
+    <input type="file" class="form-control" value="{{ old('thumb',$post->thumb) }}" name="thumb" placeholder="Inserire immagine" required>
 </div>
 
 @error('thumb')
